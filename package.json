@@ -1,0 +1,21 @@
+{
+  "name": "discount-notifications-back",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0",
+    "zod": "^4.3.6"
+  },
+  "scripts": {
+    "dev": "bun --watch run src/index.ts"
+  }
+}
