@@ -5,6 +5,9 @@ import { userRouter } from "./routes/users";
 const app: Express = express();
 const PORT = 3000;
 
+app.use(express.json());
+app.use("/users", userRouter);
+
 mongoose
   .connect(
     process.env.MONGO_URI || "mongodb://localhost:27017/discount-notifications",
@@ -15,8 +18,6 @@ mongoose
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello from Bun + Express!!!");
 });
-
-app.use("/users", userRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
