@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -32,14 +32,16 @@ export const userSchema = new mongoose.Schema(
       required: [true, "Password is required."],
       select: false,
     },
-    likedBrands: {
+    /*     likedBrands: {
       // Reference brand id here
     },
     likedClothingItems: {
       // Reference clothing item id here
-    },
+    }, */
   },
   {
     timestamps: true, // auto adds createdAt + updatedAt
   },
 );
+
+export const User = mongoose.model("User", userSchema);

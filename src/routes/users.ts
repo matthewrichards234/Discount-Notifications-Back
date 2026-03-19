@@ -1,17 +1,41 @@
 import express, { Router, Express, Request, Response } from "express";
-
+import { User } from "../models/users";
 export const userRouter = Router();
 
-userRouter.get("/", (req, res) => {
-  res.send({ message: "general get route" });
+// GET all users
+userRouter.get("/", async (req: Request, res: Response) => {
+  try {
+    const users = await User.find(); // ✅ await here
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
 });
 
-userRouter.get("/:id", (req, res) => {
-  res.send({ message: "get user by id" });
+// GET user by id
+userRouter.get("/:id", async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch user" });
+  }
 });
 
-userRouter.post("/signup", (req, res) => {
-  res.send({ message: "signup user" });
+// SIGNUP
+userRouter.post("/signup", async (req: Request, res: Response) => {
+  try {
+    const newUser = await User.create({
+      firstName: "John",
+      lastName: "Doe",
+      email: "john1@example.com",
+      password: "12345678",
+    });
+
+    res.status(201).json(newUser); // ✅ send response
+  } catch (err) {
+    res.status(500).json({ error: "Failed to create user" });
+  }
 });
 
 userRouter.post("/login", (req, res) => {
