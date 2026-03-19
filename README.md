@@ -1,5 +1,7 @@
 # discount-notifications-back
 
+![Work in Progress](https://img.shields.io/badge/status-WIP-yellow)
+
 To install dependencies:
 
 ```bash
