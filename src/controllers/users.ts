@@ -27,3 +27,7 @@ export async function signup(req: Request, res: Response) {
     res.status(500).json({ error: "Failed to create user" });
   }
 }
+
+export async function updateUser() {}
+
+export async function deleteUser() {}
