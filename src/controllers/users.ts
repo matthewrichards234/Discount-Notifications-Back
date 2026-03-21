@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
+import bcrypt from "bcrypt";
 import { User } from "../models/users";
+import { password } from "bun";
 
 export async function getAllUsers(req: Request, res: Response) {
   try {
@@ -21,7 +23,11 @@ export async function getUserById(req: Request, res: Response) {
 
 export async function signup(req: Request, res: Response) {
   try {
-    const newUser = await User.create(req.body);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const newUser = await User.create({
+      ...req.body,
+      password: hashedPassword,
+    });
     res.status(201).json(newUser);
   } catch (err) {
     res.status(500).json({ error: "Failed to create user" });
