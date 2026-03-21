@@ -32,12 +32,15 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required."],
       select: false,
     },
-    /*     likedBrands: {
+    likedBrands: {
       // Reference brand id here
     },
-    likedClothingItems: {
-      // Reference clothing item id here
-    }, */
+    likedClothingItems: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ClothingItem",
+      },
+    ],
   },
   {
     timestamps: true, // auto adds createdAt + updatedAt
