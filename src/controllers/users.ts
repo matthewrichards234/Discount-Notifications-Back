@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../models/users";
-import { password } from "bun";
 
 export async function getAllUsers(req: Request, res: Response) {
   try {
@@ -31,6 +30,28 @@ export async function signup(req: Request, res: Response) {
     res.status(201).json(newUser);
   } catch (err) {
     res.status(500).json({ error: "Failed to create user" });
+  }
+}
+
+export async function login(req: Request, res: Response) {
+  try {
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).send("Email and password required");
+    }
+
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.status(404).send("Invalid credentials");
+    }
+
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch) {
+      return res.status(401).send("Invalid credentials");
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).send("Internal server errorrr");
   }
 }
 

@@ -4,6 +4,7 @@ import {
   getAllUsers,
   getUserById,
   signup,
+  login,
   updateUser,
   deleteUser,
 } from "../controllers/users";
@@ -13,11 +14,6 @@ export const userRouter = Router();
 userRouter.get("/", getAllUsers);
 userRouter.get("/:id", getUserById);
 userRouter.post("/signup", signup);
-
-userRouter.post("/login", (req, res) => {
-  res.send({ message: "login" });
-});
-
+userRouter.post("/login", login);
 userRouter.patch("/me/:id", updateUser);
-
 userRouter.delete("/me/:id", deleteUser);
