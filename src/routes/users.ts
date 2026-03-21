@@ -1,5 +1,5 @@
 import express, { Router, Express, Request, Response } from "express";
-import { User } from "../models/users";
+import { User } from "../schemas/users";
 import {
   getAllUsers,
   getUserById,
@@ -9,11 +9,13 @@ import {
   deleteUser,
 } from "../controllers/users";
 
+import { validate } from "../middleware/validate";
+
 export const userRouter = Router();
 
 userRouter.get("/", getAllUsers);
 userRouter.get("/:id", getUserById);
-userRouter.post("/signup", signup);
+userRouter.post("/signup", validate(User), signup);
 userRouter.post("/login", login);
 userRouter.patch("/me/:id", updateUser);
 userRouter.delete("/me/:id", deleteUser);
