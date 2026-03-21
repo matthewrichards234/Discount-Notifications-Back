@@ -39,18 +39,23 @@ export async function login(req: Request, res: Response) {
       return res.status(400).send("Email and password required");
     }
 
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).select(
+      "+password",
+    );
+    console.log(user);
 
     if (!user) {
       return res.status(404).send("Invalid credentials");
     }
 
     const isMatch = await bcrypt.compare(req.body.password, user.password);
+
     if (!isMatch) {
       return res.status(401).send("Invalid credentials");
     }
     return res.status(200).json(user);
   } catch (error) {
+    console.error(error);
     return res.status(500).send("Internal server errorrr");
   }
 }
