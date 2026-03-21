@@ -50,12 +50,16 @@ export async function updateUser(req: Request, res: Response) {
       }
     });
 
+    if (updates.password) {
+      updates.password = await bcrypt.hash(updates.password, 10);
+    }
+
     const user = await User.findByIdAndUpdate(req.params.id, updates, {
       new: true,
       runValidators: true,
     });
     if (!user) {
-      res.status(404).send("User not found");
+      return res.status(404).send("User not found");
     }
     return res.status(200).json(user);
   } catch (error) {
