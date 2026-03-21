@@ -59,5 +59,12 @@ export async function updateUser(req: Request, res: Response) {
 
 export async function deleteUser(req: Request, res: Response) {
   try {
-  } catch (error) {}
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      res.status(404).send("User not found");
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).send("Failed to delete user");
+  }
 }

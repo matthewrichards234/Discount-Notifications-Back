@@ -5,6 +5,7 @@ import {
   getUserById,
   signup,
   updateUser,
+  deleteUser,
 } from "../controllers/users";
 
 export const userRouter = Router();
@@ -19,6 +20,4 @@ userRouter.post("/login", (req, res) => {
 
 userRouter.patch("/me/:id", updateUser);
 
-userRouter.delete("/me", (req, res) => {
-  res.send({ message: "deleted user" });
-});
+userRouter.delete("/me/:id", deleteUser);
