@@ -1,6 +1,11 @@
 import express, { Router, Express, Request, Response } from "express";
 import { User } from "../models/users";
-import { getAllUsers, getUserById, signup } from "../controllers/users";
+import {
+  getAllUsers,
+  getUserById,
+  signup,
+  updateUser,
+} from "../controllers/users";
 
 export const userRouter = Router();
 
@@ -12,9 +17,7 @@ userRouter.post("/login", (req, res) => {
   res.send({ message: "login" });
 });
 
-userRouter.patch("/me", (req, res) => {
-  res.send({ message: "update user" });
-});
+userRouter.patch("/me/:id", updateUser);
 
 userRouter.delete("/me", (req, res) => {
   res.send({ message: "deleted user" });

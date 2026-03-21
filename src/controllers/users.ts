@@ -28,6 +28,36 @@ export async function signup(req: Request, res: Response) {
   }
 }
 
-export async function updateUser() {}
+export async function updateUser(req: Request, res: Response) {
+  try {
+    const allowedUpdates: string[] = [
+      "firstName",
+      "lastName",
+      "email",
+      "password",
+    ];
+    const updates: any = {};
 
-export async function deleteUser() {}
+    allowedUpdates.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updates[field] = req.body[field];
+      }
+    });
+
+    const user = await User.findByIdAndUpdate(req.params.id, updates, {
+      new: true,
+      runValidators: true,
+    });
+    if (!user) {
+      res.status(404).send("User not found");
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).send("Failed to update user");
+  }
+}
+
+export async function deleteUser(req: Request, res: Response) {
+  try {
+  } catch (error) {}
+}
