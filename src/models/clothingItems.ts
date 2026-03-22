@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { minLength } from "zod";
 
 const clothingItemSchema = new mongoose.Schema({
   name: {
@@ -8,6 +9,11 @@ const clothingItemSchema = new mongoose.Schema({
   size: {
     type: String,
     require: true,
+    enum: {
+      values: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
+      message: "Size must be XS, S, M, L, or XL",
+    },
+    minLength: 1,
     maxLength: 4,
   },
   brand: {
