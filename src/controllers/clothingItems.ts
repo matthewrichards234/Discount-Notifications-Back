@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { ClothingItem } from "../models/clothingItems";
 
 export async function TEST(req: Request, res: Response) {
-  return res.send({ message: "Hello from clothing router!" });
+  return res.send({ message: "WOK" });
 }
 
 export async function getAllClothingItems(req: Request, res: Response) {
@@ -27,6 +27,18 @@ export async function createClothingItem(req: Request, res: Response) {
   }
 }
 
-export async function likeClothingItem(req: Request, res: Response) {}
+export async function likeClothingItem(req: Request, res: Response) {
+  try {
+    const clothingItem = ClothingItem.findByIdAndUpdate();
+  } catch (error) {
+    return res.status(500).send("Failed to like item.");
+  }
+}
 
-export async function dislikeClothingItem(req: Request, res: Response) {}
+export async function dislikeClothingItem(req: Request, res: Response) {
+  try {
+    const clothingItem = ClothingItem.findByIdAndUpdate();
+  } catch (error) {
+    return res.status(500).send("Failed to dislike item.");
+  }
+}
