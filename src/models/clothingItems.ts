@@ -18,6 +18,10 @@ const clothingItemSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
+  likesCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export const ClothingItem = mongoose.model("ClothingItem", clothingItemSchema);
