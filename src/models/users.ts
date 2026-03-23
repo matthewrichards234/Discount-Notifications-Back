@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
     likedBrands: {
-      // Reference brand id here
+      default: [],
     },
     likedClothingItems: [
       {
