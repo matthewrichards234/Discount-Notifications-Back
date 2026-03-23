@@ -78,7 +78,37 @@ export async function likeClothingItem(req: Request, res: Response) {
 
 export async function dislikeClothingItem(req: Request, res: Response) {
   try {
-    const clothingItem = ClothingItem.findByIdAndUpdate();
+    const itemId = req.params.id;
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    if (!user.likedClothingItems.includes(itemId)) {
+      return res.status(400).send("Item is not liked");
+    }
+
+    await User.findByIdAndUpdate(userId, {
+      $pull: { likedClothingItems: itemId },
+    });
+
+    const item = await ClothingItem.findByIdAndUpdate(
+      itemId,
+      {
+        $inc: {
+          likesCount: -1,
+        },
+      },
+      { new: true },
+    );
+    if (!item) {
+      return res.status(404).send("Clothing item not found");
+    }
+    return res.status(200).json({
+      message: "Item unliked",
+      likesCount: item.likesCount,
+    });
   } catch (error) {
     return res.status(500).send("Failed to dislike item.");
   }
