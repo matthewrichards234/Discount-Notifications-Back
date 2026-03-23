@@ -15,5 +15,6 @@ clothingItemRouter.get("/TEST", TEST);
 clothingItemRouter.get("/", getAllClothingItems);
 clothingItemRouter.get("/:id", getClothingItemById);
 clothingItemRouter.post("/upload", validate(ClothingItem), createClothingItem);
-clothingItemRouter.patch("/:id/likes", likeClothingItem);
+// clothingItemRouter.patch("/:id/likes", likeClothingItem);
+clothingItemRouter.patch("/:id/likes/:userId", likeClothingItem);
 clothingItemRouter.delete("/:id/likes", dislikeClothingItem);
