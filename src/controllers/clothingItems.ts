@@ -14,7 +14,17 @@ export async function getAllClothingItems(req: Request, res: Response) {
   }
 }
 
-export async function getClothingItemById(req: Request, res: Response) {}
+export async function getClothingItemById(req: Request, res: Response) {
+  try {
+    const clothingItem = await ClothingItem.findById(req.params.id);
+    if (!clothingItem) {
+      return res.status(404).send("Item not found.");
+    }
+    return res.json(clothingItem);
+  } catch (error) {
+    return res.status(500).send("Internal server error.");
+  }
+}
 
 export async function createClothingItem(req: Request, res: Response) {
   try {
