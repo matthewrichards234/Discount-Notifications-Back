@@ -33,5 +33,5 @@ export const ClothingItem = z.object({
   ]),
   brand: z.string().min(1).max(20).trim(),
   price: z.number().positive(),
-  likesCount: z.number().default(0).optional(),
+  likesCount: z.number().nonnegative().default(0),
 });
