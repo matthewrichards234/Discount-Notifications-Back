@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import { userRouter } from "./routes/users";
 import { clothingItemRouter } from "./routes/clothingItems";
 import { urlRouter } from "./routes/url";
@@ -8,6 +9,7 @@ const app: Express = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(cors());
 app.use("/users", userRouter);
 app.use("/clothingItems", clothingItemRouter);
 app.use("/url", urlRouter);
